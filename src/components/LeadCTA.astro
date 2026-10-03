@@ -1,0 +1,42 @@
+---
+import type { CtaKind } from '../data/guides';
+
+interface Props { kind?: CtaKind; title?: string }
+const { kind = 'accountant', title } = Astro.props;
+
+const CTAS: Record<Exclude<CtaKind, 'none'>, { heading: string; body: string; href: string; btn: string }> = {
+  accountant: {
+    heading: title ?? 'Get matched with a tax pro',
+    body: 'Answer a few questions about your business and get connected with a licensed tax professional who works with businesses like yours. Comparing options is free.',
+    href: '/go/1800accountant/',
+    btn: 'Get matched — free',
+  },
+  formation: {
+    heading: title ?? 'Form your LLC the right way',
+    body: 'If you decide an LLC fits, formation services handle the state filing, registered agent, and paperwork — including S-corp election filings.',
+    href: '/go/zenbusiness/',
+    btn: 'See formation options',
+  },
+  payroll: {
+    heading: title ?? 'Payroll that handles the tax filings',
+    body: 'S-corp owners running payroll need withholding, quarterly filings, and W-2s handled correctly. Payroll software built for small business does all three.',
+    href: '/go/gusto/',
+    btn: 'See payroll options',
+  },
+  software: {
+    heading: title ?? 'Bookkeeping software that tracks every deduction',
+    body: 'Clean books are what make deductions defensible. Accounting software built for small business categorizes expenses as they happen.',
+    href: '/go/quickbooks/',
+    btn: 'See accounting software',
+  },
+};
+
+const cta = CTAS[kind];
+---
+
+<section class="review-cta" aria-label={cta.heading}>
+  <h2>{cta.heading}</h2>
+  <p>{cta.body}</p>
+  <p><a class="btn btn-lg" href={cta.href} rel="sponsored nofollow">{cta.btn}</a></p>
+  <p class="muted">Partner link — we may earn a referral fee if you connect with a provider. <a href="/disclosure/">Details</a>.</p>
+</section>

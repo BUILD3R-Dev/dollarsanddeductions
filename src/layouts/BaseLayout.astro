@@ -1,0 +1,82 @@
+---
+import { SITE, NAV, EDU_DISCLAIMER } from '../data/site';
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  ogType?: string;
+}
+
+const { title, description, canonical, noindex, schema, ogType = 'article' } = Astro.props;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, SITE.url).toString();
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => href === '/' ? path === href : (href.endsWith('/') ? path === href : path.startsWith(href));
+const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+
+const brandMark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0f3d2a"/><text x="16" y="23.5" text-anchor="middle" font-size="20" font-weight="800" fill="#ffc92e" font-family="system-ui, sans-serif">$</text></svg>`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta name="twitter:card" content="summary" />
+    <!-- GA4: Measurement ID goes here when Dustin creates the data stream -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f3d2a'/%3E%3Ctext x='16' y='23.5' text-anchor='middle' font-size='20' font-weight='800' fill='%23ffc92e' font-family='system-ui,sans-serif'%3E$%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet" />
+    {schemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap-wide nav">
+        <a class="brand" href="/">
+          <span set:html={brandMark} />
+          Dollars &amp; Deductions
+        </a>
+        <nav class="links" aria-label="Primary">
+          {NAV.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap-wide">
+        <a class="brand" href="/">
+          <span set:html={brandMark} />
+          Dollars &amp; Deductions
+        </a>
+        <nav aria-label="Footer">
+          <a href="/about/">About</a>
+          <a href="/how-we-research/">How we research</a>
+          <a href="/disclosure/">Disclosure</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/sitemap-index.xml">Sitemap</a>
+        </nav>
+        <div class="foot-text">
+          <p>© 2026 dollarsanddeductions.com — {EDU_DISCLAIMER}</p>
+          <p>We may earn a referral fee when you connect with a service provider through links on this site. <a href="/disclosure/">Read our disclosure</a>.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

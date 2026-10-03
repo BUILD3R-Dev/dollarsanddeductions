@@ -1,0 +1,8 @@
+---
+interface Props { date?: string }
+const { date = '2026-10-03' } = Astro.props;
+const d = new Date(date + 'T12:00:00');
+const label = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<p class="verified">Reviewed {label} against current IRS guidance. Tax law changes — <a href="/how-we-research/">how we research</a>.</p>

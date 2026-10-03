@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { EDU_DISCLAIMER } from '../../data/site';
+---
+
+<BaseLayout title="Disclosure — Dollars & Deductions" description="How Dollars & Deductions makes money: partner referral fees that never influence content. Plus our educational-use disclaimer.">
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Disclosure' }]} />
+    <h1>Disclosure</h1>
+    <p class="lede">Two things you should know about this site, stated plainly.</p>
+
+    <h2>1. Educational content only</h2>
+    <p>{EDU_DISCLAIMER} We are not CPAs, tax advisors, or attorneys. Guides explain concepts and compare options in general terms — they are never personalized recommendations. Tax law changes; verify anything consequential against current IRS guidance or with a qualified professional before acting.</p>
+
+    <h2>2. How we make money</h2>
+    <p>Dollars &amp; Deductions is reader-supported. When you use a link on this site to connect with a service provider — a tax firm, a formation service, payroll or accounting software — we may earn a referral fee or commission from that provider.</p>
+    <ul>
+      <li><strong>It never changes what we write.</strong> Partners cannot pay for coverage, placement, or favorable framing.</li>
+      <li><strong>It costs you nothing extra.</strong> Referral fees are paid by the provider, not added to your price.</li>
+      <li><strong>It is always labeled.</strong> Monetized links carry a partner-link note where they appear, and redirect through <code>/go/</code> addresses on this site.</li>
+    </ul>
+    <p>This is the FTC-endorsed way to do it: clear, conspicuous, and on the page where the link appears — not buried here. This page is the long version.</p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+/** Partner click-tracking redirects — excluded from the sitemap.
+ *  Placeholder destinations: partner homepages. Swapped to real
+ *  partner/tracking links when programs approve. */
+import { PARTNERS } from '../../data/partners';
+
+export async function getStaticPaths() {
+  return PARTNERS.map((p) => ({ params: { partner: p.slug } }));
+}
+
+const { partner } = Astro.params;
+const target = PARTNERS.find((p) => p.slug === partner)?.homepage ?? 'https://dollarsanddeductions.com/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <title>Redirecting…</title>
+  </head>
+  <body>
+    <p>Redirecting to our partner… <a href={target} rel="sponsored nofollow">continue</a></p>
+  </body>
+</html>

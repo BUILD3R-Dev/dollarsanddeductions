@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadCTA from '../components/LeadCTA.astro';
+import DisclosureBlock from '../components/DisclosureBlock.astro';
+import FAQ, { type FaqItem } from '../components/FAQ.astro';
+import { GUIDES, HUBS } from '../data/guides';
+import { SITE } from '../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.tagline,
+};
+
+const faqs: FaqItem[] = [
+  {
+    q: 'Is this site run by accountants?',
+    a: 'No. Dollars & Deductions is an independent educational publication. We are not CPAs, tax advisors, or attorneys, and nothing here is personalized tax, legal, or financial advice. When a topic needs a professional, we say so — and our partner links connect you with licensed firms.',
+  },
+  {
+    q: 'How does this site make money?',
+    a: 'Through partner referral fees. When you use a link on this site to connect with a tax firm, formation service, or software provider, we may earn a fee from that provider. It never changes what we write, and every monetized link is labeled.',
+  },
+  {
+    q: 'Is the tax information current?',
+    a: 'Guides are reviewed at least monthly against current IRS guidance, and each page shows its review date. Tax law changes, so verify anything consequential against current IRS publications or with a qualified professional before acting.',
+  },
+];
+---
+
+<BaseLayout
+  title="Dollars & Deductions — Plain-English Small Business Tax Guides"
+  description="Plain-English guides to small-business taxes, S corp vs LLC, deductions, CPA costs, bookkeeping, and payroll. Educational content for owners, not accountants."
+  ogType="website"
+  schema={schema}
+>
+  <div class="wrap-wide">
+    <section class="hero">
+      <p class="hero-eyebrow">Independent · Educational · No jargon</p>
+      <h1>Small-business taxes, explained like a human.</h1>
+      <p class="hero-sub">S corp vs LLC. Deductions. What a CPA actually costs. Plain-English guides for owners — written by researchers, not salespeople, and reviewed against current IRS guidance.</p>
+      <div class="hero-actions">
+        <a class="btn btn-lg" href="/s-corp-vs-llc/">Start with S Corp vs LLC</a>
+        <a class="btn btn-ghost btn-lg" href="#guides">Browse all guides</a>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section id="guides">
+      <h2>Guides</h2>
+      <div>
+        {HUBS.map((hub) => (
+          <div>
+            <h3>{hub}</h3>
+            <ul class="linklist">
+              {GUIDES.filter((g) => g.hub === hub).map((g) => (
+                <li>
+                  <a href={`/${g.slug}/`}><strong>{g.title.replace(/ \(2026.*$/, '')}</strong></a>
+                  <p class="muted">{g.hook}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2>Why trust these guides</h2>
+      <div class="trust-row">
+        <div class="card">
+          <h3>Primary sources</h3>
+          <p>Every guide starts with IRS publications, forms, and instructions — not blog posts quoting blog posts.</p>
+        </div>
+        <div class="card">
+          <h3>No credential cosplay</h3>
+          <p>We're not CPAs and don't pretend to be. Educational content, disclosed limits, professionals recommended where it matters.</p>
+        </div>
+        <div class="card">
+          <h3>Money, disclosed</h3>
+          <p>Partner referral fees are labeled on every monetized link and never influence what we write. <a href="/disclosure/">Details</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <LeadCTA kind="accountant" />
+
+    <FAQ items={faqs} />
+    <DisclosureBlock />
+  </div>
+</BaseLayout>

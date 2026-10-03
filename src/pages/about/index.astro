@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DisclosureBlock from '../../components/DisclosureBlock.astro';
+---
+
+<BaseLayout title="About Dollars & Deductions" description="Dollars & Deductions publishes plain-English guides to small-business taxes, entity structure, deductions, bookkeeping, and payroll. Educational content only.">
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+    <h1>About Dollars &amp; Deductions</h1>
+    <p class="lede">Small-business tax advice has a trust problem. Most of it is either written by firms selling you their services, or so dense with jargon it might as well be a different language.</p>
+    <p>We write the guides we wish existed: <strong>plain-English explanations of how small-business taxes, entity structure, deductions, bookkeeping, and payroll actually work</strong> — built for owners, not accountants.</p>
+    <h2>What this site is</h2>
+    <ul>
+      <li><strong>Educational.</strong> We explain concepts, compare options, and lay out the factors owners weigh. Every page carries the same line: educational purposes only — not tax, legal, or financial advice.</li>
+      <li><strong>Independent.</strong> Partner referral fees never change what we write. Our revenue model is disclosed on every monetized page.</li>
+      <li><strong>Maintained.</strong> Tax law changes, so guides are reviewed against current IRS guidance — each page shows its review date.</li>
+    </ul>
+    <h2>What this site isn't</h2>
+    <ul>
+      <li>We are <strong>not CPAs, tax advisors, or attorneys</strong>, and we never claim to be. Nothing here is personalized advice.</li>
+      <li>We don't sell tax preparation or planning services. When a topic needs a professional, we say so — and our partner links connect you with licensed firms.</li>
+    </ul>
+    <p>Read <a href="/how-we-research/">how we research</a> and the <a href="/disclosure/">full disclosure</a>.</p>
+    <DisclosureBlock />
+  </div>
+</BaseLayout>

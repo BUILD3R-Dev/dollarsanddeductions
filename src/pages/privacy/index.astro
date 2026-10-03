@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+---
+
+<BaseLayout title="Privacy Policy — Dollars & Deductions" description="Privacy policy for dollarsanddeductions.com: what we collect, what we don't, and how partner links work.">
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Privacy' }]} />
+    <h1>Privacy policy</h1>
+    <p class="lede">Short version: this site collects almost nothing.</p>
+    <h2>What we collect</h2>
+    <ul>
+      <li><strong>Analytics (when enabled).</strong> We may use privacy-respecting analytics to see which guides get read. No cross-site tracking, no data sold.</li>
+      <li><strong>Nothing else.</strong> There are no accounts, no newsletters, no comment sections, and no forms on this site.</li>
+    </ul>
+    <h2>Partner links</h2>
+    <p>Links marked as partner links redirect through <code>/go/</code> addresses to third-party providers. Once you leave this site, the provider's privacy policy applies — read it before sharing personal or business information.</p>
+    <h2>Cookies</h2>
+    <p>This site sets no cookies of its own. Partner sites you visit through our links may set theirs per their own policies.</p>
+    <h2>Contact</h2>
+    <p>Questions about this policy: see the <a href="/about/">about page</a> for what this site is.</p>
+    <p class="muted">Last updated: October 3, 2026.</p>
+  </div>
+</BaseLayout>

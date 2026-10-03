@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DisclosureBlock from '../../components/DisclosureBlock.astro';
+import LastReviewed from '../../components/LastReviewed.astro';
+import LeadCTA from '../../components/LeadCTA.astro';
+import FAQ, { type FaqItem } from '../../components/FAQ.astro';
+import { guideBySlug } from '../../data/guides';
+
+const guide = guideBySlug('small-business-tax-deductions-checklist');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.title,
+  description: guide.description,
+  author: { '@type': 'Organization', name: 'Dollars & Deductions' },
+};
+
+const faqs: FaqItem[] = [
+  {
+    q: 'When should I start thinking about year-end tax moves?',
+    a: 'October through early December is the practical window: late enough to estimate the full year, early enough to act. Retirement contributions, equipment purchases, and income/expense timing all need lead time. Anything discovered in January is mostly history.',
+  },
+  {
+    q: 'What records does the IRS actually want to see?',
+    a: 'Records showing amount, date, place, and business purpose for each deduction — receipts, bank and card statements, mileage logs, and invoices. Digital copies are fine. The standard is "adequate records": enough that a stranger could reconstruct what happened and why it was business.',
+  },
+  {
+    q: 'Do quarterly estimated payments apply to me?',
+    a: 'If you expect to owe $1,000 or more in tax after withholding and credits, you generally need to pay quarterly estimated tax (Form 1040-ES) to avoid penalties. New business owners are the classic surprise case: nobody withholds from your profit anymore. Safe-harbor rules let you avoid penalties by paying enough based on last year — discuss the math with a professional.',
+  },
+];
+---
+
+<BaseLayout title={guide.title} description={guide.description} schema={schema}>
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Deductions checklist' }]} />
+    <h1>Small Business Tax Deductions Checklist</h1>
+    <p class="lede">The deduction you forget in April is decided in the records you keep all year. A practical checklist: year-round habits, year-end moves to discuss with your tax pro, and deadlines not to miss.</p>
+    <LastReviewed date={guide.updated} />
+
+    <section>
+      <h2>Year-round habits</h2>
+      <ul class="checklist">
+        <li><strong>Separate the money.</strong> Dedicated business checking and card. Every mixed transaction is a future argument.</li>
+        <li><strong>Log mileage contemporaneously.</strong> A tracking app beats a reconstructed notebook — the IRS is explicit about vehicle substantiation.</li>
+        <li><strong>Photograph receipts at purchase.</strong> Thermal paper fades; phone photos don't. Note the business purpose on unusual ones.</li>
+        <li><strong>Reconcile monthly.</strong> Thirty minutes a month beats thirty hours in March — and it's what makes your books quote-ready.</li>
+        <li><strong>Track home-office use.</strong> Square footage of the dedicated space, and keep it exclusive — no guest-room double duty.</li>
+        <li><strong>File contractor paperwork on time.</strong> Collect W-9s when you hire contractors, not in January when 1099s are due.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Year-end moves to discuss with your tax pro</h2>
+      <ul class="checklist">
+        <li><strong>Retirement contributions.</strong> SEP IRA and Solo 401(k) funding — among the largest levers available; deadlines and limits are year-specific.</li>
+        <li><strong>Equipment purchases.</strong> Section 179 immediate expensing vs. depreciation — timing a purchase in December vs. January changes which year it hits.</li>
+        <li><strong>Income and expense timing.</strong> Where the rules allow, accelerating deductions or deferring income across the year boundary.</li>
+        <li><strong>Inventory and bad debts.</strong> Write-downs and uncollectible receivables need to be recognized properly to count.</li>
+        <li><strong>Health insurance premiums.</strong> Confirm the self-employed deduction is captured — it's easy to miss when nothing changed year over year.</li>
+        <li><strong>Estimated payment calibration.</strong> True up Q4 estimates so you're neither penalized nor giving an interest-free loan.</li>
+      </ul>
+      <p class="muted">These are topics for a planning conversation, not DIY decisions — several interact with entity type and prior elections.</p>
+    </section>
+
+    <LeadCTA kind="accountant" title="Get a year-end review with a pro" />
+
+    <section>
+      <h2>Deadlines not to miss</h2>
+      <ul>
+        <li><strong>January 31:</strong> W-2s to employees, 1099s to contractors (and e-filed copies to the IRS).</li>
+        <li><strong>March 15:</strong> S corporation (1120-S) and partnership (1065) returns due — or extension filed.</li>
+        <li><strong>April 15:</strong> Individual, sole proprietor (Schedule C), and C corp returns due — or extension filed. Q1 estimates due.</li>
+        <li><strong>Quarterly:</strong> estimated payments due mid-April, mid-June, mid-September, mid-January.</li>
+        <li><strong>Extensions</strong> extend the filing deadline, not the payment deadline — you still must pay what you owe on time to avoid penalties and interest.</li>
+      </ul>
+    </section>
+
+    <FAQ items={faqs} />
+
+    <section>
+      <h2>Related guides</h2>
+      <ul class="linklist">
+        {guide.related.map((slug) => { const r = guideBySlug(slug); return (
+          <li><a href={`/${r.slug}/`}><strong>{r.title.replace(/ \(2026.*$/, '')}</strong></a><p class="muted">{r.hook}</p></li>
+        );})}
+      </ul>
+    </section>
+
+    <DisclosureBlock />
+  </div>
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DisclosureBlock from '../../components/DisclosureBlock.astro';
+import LastReviewed from '../../components/LastReviewed.astro';
+---
+
+<BaseLayout title="How We Research — Dollars & Deductions" description="How Dollars & Deductions researches guides: IRS primary sources, plain-English synthesis, monthly review cadence, and honest limits.">
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'How we research' }]} />
+    <h1>How we research</h1>
+    <p class="lede">We are educators, not practitioners. Here is exactly how we build guides — and where our limits are.</p>
+
+    <h2>Primary sources first</h2>
+    <p>Every guide starts with IRS primary sources: publications, forms, and instructions (e.g., Publication 334 for small business, the Form 2553 instructions for S elections, Publication 463 for travel and vehicle rules). Secondary sources — industry pricing surveys, provider documentation — are used for market context like pricing models, never for tax rules.</p>
+
+    <h2>Plain-English synthesis</h2>
+    <p>We translate, we don't simplify away meaning. When a rule has exceptions that matter (and tax rules always do), we say so and point at the source. When we don't know something, we say that instead of filling the gap.</p>
+
+    <h2>Review cadence</h2>
+    <p>Guides are reviewed at least monthly against current IRS guidance, and immediately when tax law changes materially. Each guide shows its last review date. Pricing information — CPA fees, software plans — is the most volatile; we describe pricing <em>models</em> and commonly reported ranges rather than asserting prices that go stale.</p>
+
+    <h2>Honest limits</h2>
+    <ul>
+      <li><strong>No personalized advice.</strong> We explain how things work in general; we never tell a specific business what to do.</li>
+      <li><strong>No credentialed titles.</strong> Nobody here is a CPA, tax advisor, or attorney, and our content never implies otherwise.</li>
+      <li><strong>No pay-to-play.</strong> Partner referral fees are disclosed and never influence coverage. See the <a href="/disclosure/">full disclosure</a>.</li>
+    </ul>
+
+    <LastReviewed />
+    <DisclosureBlock />
+  </div>
+</BaseLayout>

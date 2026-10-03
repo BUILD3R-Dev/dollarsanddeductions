@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DisclosureBlock from '../../components/DisclosureBlock.astro';
+import LastReviewed from '../../components/LastReviewed.astro';
+import LeadCTA from '../../components/LeadCTA.astro';
+import FAQ, { type FaqItem } from '../../components/FAQ.astro';
+import { guideBySlug } from '../../data/guides';
+
+const guide = guideBySlug('what-is-a-tax-strategist');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.title,
+  description: guide.description,
+  author: { '@type': 'Organization', name: 'Dollars & Deductions' },
+};
+
+const faqs: FaqItem[] = [
+  {
+    q: 'Is a tax strategist the same as a CPA?',
+    a: 'Not necessarily. "Tax strategist" is a descriptive label, not a licensed credential — unlike CPA, which is a state-issued license with education and exam requirements. Some tax strategists are CPAs or attorneys; others are enrolled agents or experienced tax professionals. The label describes what they focus on (planning), not a qualification. Always ask about actual credentials.',
+  },
+  {
+    q: 'How much does a tax strategist cost?',
+    a: 'Pricing models vary: project-based engagements, monthly subscriptions, or a percentage of identified savings (less common and worth scrutinizing). Because there is no standard credential or rate card, get written proposals from more than one provider and compare what is actually included — number of planning sessions, implementation support, and whether return preparation is included.',
+  },
+  {
+    q: 'Can a tax strategist do my tax return too?',
+    a: 'Some do — many strategy-focused firms bundle preparation with planning. Others focus purely on planning and coordinate with your existing preparer. Clarify this before engaging anyone: you do not want to discover in March that nobody is actually filing the return.',
+  },
+];
+---
+
+<BaseLayout title={guide.title} description={guide.description} schema={schema}>
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'What is a tax strategist' }]} />
+    <h1>What Is a Tax Strategist?</h1>
+    <p class="lede">Compliance files the return. Strategy decides what goes on it. Here's what tax strategists actually do, how they differ from preparers, and when hiring one pays off.</p>
+    <LastReviewed date={guide.updated} />
+
+    <section>
+      <h2>The compliance / strategy split</h2>
+      <p>Most tax engagements are <strong>compliance</strong>: accurately reporting decisions you already made. A tax strategist works on the other side — <strong>making the decisions during the year</strong> that determine what the return looks like: entity structure, owner compensation, retirement contributions, timing of income and expenses, and estimated payments.</p>
+      <p>The economic logic is simple: a preparer can only work with the year you give them. A strategist tries to change the year before it ends. Whether that is worth paying for depends on how many movable decisions your business actually has.</p>
+    </section>
+
+    <section>
+      <h2>What they typically work on</h2>
+      <ul>
+        <li><strong>Entity and election timing</strong> — when (and whether) an S election, and how owner pay is structured.</li>
+        <li><strong>Retirement plan selection</strong> — SEP IRA vs Solo 401(k) vs SIMPLE, and contribution timing. These are among the largest levers a small business has.</li>
+        <li><strong>Income and expense timing</strong> — accelerating deductions or deferring income across year boundaries where the rules allow.</li>
+        <li><strong>Estimated payments</strong> — calibrating quarterly payments to avoid penalties without overpaying.</li>
+        <li><strong>Multi-year picture</strong> — how this year's decisions affect next year's options.</li>
+      </ul>
+    </section>
+
+    <LeadCTA kind="accountant" />
+
+    <section>
+      <h2>Strategist vs preparer vs CPA — the labels</h2>
+      <p>These words get mixed together, so here's the plain version:</p>
+      <ul>
+        <li><strong>Tax preparer:</strong> prepares and files returns. Focus is accuracy and deadlines.</li>
+        <li><strong>CPA:</strong> a state-licensed credential (education + exam + experience). CPAs can do preparation, planning, or both — the license doesn't tell you which.</li>
+        <li><strong>Tax strategist:</strong> a <em>descriptive label, not a license</em>. It signals a focus on planning rather than just filing. Some strategists are CPAs; some aren't. Ask about actual credentials.</li>
+      </ul>
+      <p>The label matters less than the engagement: are you buying a filed return in March, or decisions made all year? Get that answer in writing before you pay.</p>
+    </section>
+
+    <section>
+      <h2>When it tends to pay off</h2>
+      <ul>
+        <li>Your business is profitable enough that entity, compensation, and retirement decisions move real dollars.</li>
+        <li>You currently meet your tax person once a year, in filing season, and never discuss the coming year.</li>
+        <li>You've had a structural change — new entity, new partners, hiring employees, crossing into multi-state activity.</li>
+      </ul>
+      <p>If none of those apply, honest strategy work may tell you there's nothing to optimize yet — which is itself a useful (and cheap) answer.</p>
+    </section>
+
+    <section>
+      <h2>What to ask before hiring one</h2>
+      <ul class="checklist">
+        <li>What are your actual credentials — CPA, attorney, enrolled agent?</li>
+        <li>Is return preparation included, or is this planning only?</li>
+        <li>How is the fee structured, and what exactly does it cover?</li>
+        <li>How many planning touchpoints happen during the year — and when?</li>
+        <li>Can you describe a situation like mine where the planning paid for itself?</li>
+      </ul>
+    </section>
+
+    <FAQ items={faqs} />
+
+    <section>
+      <h2>Related guides</h2>
+      <ul class="linklist">
+        {guide.related.map((slug) => { const r = guideBySlug(slug); return (
+          <li><a href={`/${r.slug}/`}><strong>{r.title.replace(/ \(2026.*$/, '')}</strong></a><p class="muted">{r.hook}</p></li>
+        );})}
+      </ul>
+    </section>
+
+    <DisclosureBlock />
+  </div>
+</BaseLayout>

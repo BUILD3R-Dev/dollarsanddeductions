@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import DisclosureBlock from '../../components/DisclosureBlock.astro';
+import LastReviewed from '../../components/LastReviewed.astro';
+import LeadCTA from '../../components/LeadCTA.astro';
+import FAQ, { type FaqItem } from '../../components/FAQ.astro';
+import { guideBySlug } from '../../data/guides';
+
+const guide = guideBySlug('small-business-tax-deductions');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.title,
+  description: guide.description,
+  author: { '@type': 'Organization', name: 'Dollars & Deductions' },
+};
+
+const faqs: FaqItem[] = [
+  {
+    q: 'What is the difference between a deduction and a credit?',
+    a: 'A deduction reduces the income your tax is calculated on; a credit reduces the tax itself, dollar for dollar. A $1,000 deduction saves you $1,000 times your marginal tax rate (e.g., $220 at a 22% rate). A $1,000 credit saves you $1,000. Credits are more valuable per dollar, but deductions are far more numerous for businesses.',
+  },
+  {
+    q: 'Do I need receipts for every deduction?',
+    a: 'You need records sufficient to substantiate each deduction if questioned — the IRS calls this "adequate records." For most expenses that means receipts or bank/credit records showing amount, date, place, and business purpose. Some categories (like vehicle use) have specific substantiation rules. Contemporaneous records beat reconstructed ones every time.',
+  },
+  {
+    q: 'Can I deduct expenses from before my business officially started?',
+    a: 'Startup costs get special treatment: the IRS generally lets you deduct up to $5,000 of startup costs and $5,000 of organizational costs in the first year (with phaseouts above $50,000), amortizing the rest. What counts as a "startup cost" has specific rules — this is worth discussing with a tax professional rather than guessing.',
+  },
+];
+---
+
+<BaseLayout title={guide.title} description={guide.description} schema={schema}>
+  <div class="wrap">
+    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Small business tax deductions' }]} />
+    <h1>Small Business Tax Deductions: The Categories That Matter</h1>
+    <p class="lede">Deductions are not loopholes. They are the tax code telling you what it wants to subsidize. Here are the categories that move the needle for small businesses — how each works, and what makes each one defensible.</p>
+    <LastReviewed date={guide.updated} />
+
+    <section>
+      <h2>The principle</h2>
+      <p>The IRS lets businesses deduct "ordinary and necessary" expenses — ordinary meaning common in your trade, necessary meaning helpful and appropriate. Everything below is a specific application of that principle. The pattern to internalize: <strong>if it's genuinely for the business, documented, and not personal, it's usually deductible.</strong> The fights are always about documentation and personal-vs-business lines.</p>
+    </section>
+
+    <section>
+      <h2>Home office</h2>
+      <p>If you use part of your home regularly and exclusively for business, you have two methods:</p>
+      <ul>
+        <li><strong>Simplified method:</strong> a flat IRS-set rate per square foot (up to 300 sq ft). Minimal paperwork.</li>
+        <li><strong>Regular method:</strong> deduct the business percentage of actual home expenses — mortgage interest or rent, utilities, insurance, repairs. More record-keeping, often a bigger deduction.</li>
+      </ul>
+      <p>"Regularly and exclusively" is the tripwire: the space must be used for business on a regular basis and not for personal purposes. A guest room that doubles as an office fails the test.</p>
+    </section>
+
+    <section>
+      <h2>Vehicle</h2>
+      <p>Business driving is deductible; commuting from home to a regular workplace is not. Two methods:</p>
+      <ul>
+        <li><strong>Standard mileage rate:</strong> the IRS publishes a per-mile rate each year. Multiply by business miles. Simple, and often generous.</li>
+        <li><strong>Actual expenses:</strong> gas, maintenance, insurance, depreciation, apportioned by business-use percentage.</li>
+      </ul>
+      <p>Either way, you need a mileage log — the IRS is explicit about substantiation here. Apps that track automatically beat notebooks you fill in during April.</p>
+    </section>
+
+    <section>
+      <h2>Retirement contributions</h2>
+      <p>Often the largest deduction available to a profitable small business, and the most underused. The main vehicles:</p>
+      <ul>
+        <li><strong>SEP IRA:</strong> simple to set up, contributions are deductible, limits scale with income.</li>
+        <li><strong>Solo 401(k):</strong> for owner-only businesses; allows both employer and employee contributions, usually the highest limits.</li>
+        <li><strong>SIMPLE IRA:</strong> a middle ground when you have a few employees.</li>
+      </ul>
+      <p>Contribution deadlines and limits change yearly — confirm the current year's figures with IRS guidance or a professional. The strategic point stands regardless: retirement funding is one of the few deductions where the money stays yours.</p>
+    </section>
+
+    <LeadCTA kind="software" />
+
+    <section>
+      <h2>Health insurance (self-employed)</h2>
+      <p>Self-employed owners can generally deduct health insurance premiums for themselves, spouses, and dependents — a deduction with its own line on the return, separate from itemizing. S corporation owners above 2% ownership have specific rules here (premiums run through payroll). Details matter; the deduction is real either way.</p>
+    </section>
+
+    <section>
+      <h2>Business meals</h2>
+      <p>Business meals are generally 50% deductible when they have a clear business purpose — with a client, while traveling for business, or with employees for the employer's convenience (different rules apply). Document who, where, why, and how much. The days of the lavish fully-deductible client dinner are long gone; the 50% limit and documentation requirements are the current reality.</p>
+    </section>
+
+    <section>
+      <h2>Startup costs and Section 179</h2>
+      <ul>
+        <li><strong>Startup costs:</strong> up to $5,000 deductible in year one (plus $5,000 of organizational costs), with phaseouts above $50,000 in total costs; the remainder amortized. Discuss classification with a professional.</li>
+        <li><strong>Section 179:</strong> lets you expense qualifying equipment purchases immediately instead of depreciating them over years. Limits and phaseouts are set annually — check the current year's figures.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>What makes deductions survive scrutiny</h2>
+      <ul class="checklist">
+        <li><strong>Business purpose, documented at the time.</strong> "Lunch with client X to discuss Q3 contract" beats a receipt alone.</li>
+        <li><strong>Separation.</strong> A dedicated business account turns "was this business?" from an argument into a statement.</li>
+        <li><strong>Consistency.</strong> Deductions claimed the same way every year look like a system. Novel ones in a high-income year look like a strategy.</li>
+      </ul>
+      <p>When in doubt about a gray-area deduction, the cost of asking a professional is trivial compared to the cost of defending it.</p>
+    </section>
+
+    <FAQ items={faqs} />
+
+    <section>
+      <h2>Related guides</h2>
+      <ul class="linklist">
+        {guide.related.map((slug) => { const r = guideBySlug(slug); return (
+          <li><a href={`/${r.slug}/`}><strong>{r.title.replace(/ \(2026.*$/, '')}</strong></a><p class="muted">{r.hook}</p></li>
+        );})}
+      </ul>
+    </section>
+
+    <DisclosureBlock />
+  </div>
+</BaseLayout>
