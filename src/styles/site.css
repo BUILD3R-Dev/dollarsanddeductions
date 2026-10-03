@@ -109,7 +109,9 @@ header.site {
   white-space: nowrap;
 }
 .brand:hover { color: var(--ink); text-decoration: none; }
-.brand-mark { width: 30px; height: 30px; flex: none; display: block; }
+/* Logo lock-up (public/brand). The art has a 14/120 inset around the icon;
+   the negative margin puts the icon's edge on the container line. */
+.brand-logo { display: block; height: 44px; width: auto; margin-left: -5px; }
 nav.links { display: flex; gap: 0.25rem; margin-left: auto; }
 nav.links a {
   position: relative;
