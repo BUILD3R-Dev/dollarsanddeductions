@@ -6,6 +6,7 @@ import LastReviewed from '../../components/LastReviewed.astro';
 import LeadCTA from '../../components/LeadCTA.astro';
 import FAQ, { type FaqItem } from '../../components/FAQ.astro';
 import Toc from '../../components/Toc.astro';
+import GuideVideo from '../../components/GuideVideo.astro';
 import RelatedGuides from '../../components/RelatedGuides.astro';
 import Worksheet from '../../components/Worksheet.astro';
 import { guideBySlug } from '../../data/guides';
@@ -31,7 +32,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: 'What is the reasonable salary rule?',
-    a: 'If an S corporation owner works in the business, the IRS requires the business to pay them a "reasonable salary" as a W-2 employee before taking tax-free distributions. The salary is subject to payroll taxes; distributions beyond it generally are not subject to self-employment tax. What counts as "reasonable" depends on the role, industry, and location — there is no IRS formula, which is why this area draws scrutiny.',
+    a: 'If an S corporation owner works in the business, the IRS requires the business to pay them a "reasonable salary" as a W-2 employee before taking distributions. The salary is subject to payroll taxes; distributions beyond it generally are not subject to payroll or self-employment tax, though they are still subject to income tax. What counts as "reasonable" depends on the role, industry, and location — there is no IRS formula, which is why this area draws scrutiny.',
   },
   {
     q: 'How much does it cost to maintain an S corp election?',
@@ -52,6 +53,7 @@ const faqs: FaqItem[] = [
     <div class="article">
       <Toc />
       <div class="article-body">
+        {guide.video && <GuideVideo video={guide.video} description={guide.description} />}
         <section>
           <h2>The one thing to get straight first</h2>
           <p><strong>"S corp" is a tax election. "LLC" is a business entity.</strong> They are not parallel choices. An LLC is formed under state law; how it is taxed is a separate decision. An LLC can be taxed as a disregarded entity, a partnership, or — by filing <strong>Form 2553</strong> with the IRS — as an S corporation. A corporation can also elect S status.</p>
@@ -61,7 +63,7 @@ const faqs: FaqItem[] = [
         <section>
           <h2>How a default LLC is taxed</h2>
           <p>A single-member LLC is "disregarded" for federal tax purposes — its profit flows straight onto the owner's personal return (Schedule C). A multi-member LLC is taxed as a partnership (Form 1065, with K-1s to members). Either way, the headline number is the <strong>self-employment tax: 15.3%</strong> on net earnings (12.4% Social Security up to the annual wage base, plus 2.9% Medicare), on top of income tax.</p>
-          <p>That 15.3% applies to essentially all of the business's profit. For a business netting $80,000, that's roughly $12,240 in SE tax before income tax even enters the picture. This is the number the S election is trying to shrink.</p>
+          <p>That 15.3% applies to nearly all of the business's profit: the tax is figured on 92.35% of net profit. For a business netting $80,000, that's roughly $11,300 in SE tax before income tax even enters the picture. This is the number the S election is trying to shrink.</p>
         </section>
 
         <section>
@@ -79,7 +81,7 @@ const faqs: FaqItem[] = [
           <p>Think of it as a tradeoff with fixed costs on one side and a percentage saving on the other:</p>
           <ul>
             <li><strong>Fixed costs of the S election:</strong> payroll service, quarterly payroll filings, the 1120-S return, and typically professional fees. Commonly discussed as a few thousand dollars a year all-in, varying by market.</li>
-            <li><strong>Saving:</strong> roughly 15.3% of (profit minus reasonable salary).</li>
+            <li><strong>Saving:</strong> roughly 15.3% of (92.35% of profit, minus the reasonable salary). For example, $180,000 of profit and a $68,000 salary works out to about $25,400 of SE tax versus about $10,400 of payroll tax: a gap of roughly $15,000 before the costs above.</li>
           </ul>
           <p>At modest profits, the fixed costs eat the saving. As profit grows well beyond what a reasonable salary for the role would be, the math increasingly favors the election. Where exactly the line falls depends on the salary the IRS would consider reasonable for the work — which is also the part that draws scrutiny, so aggressive low-salary strategies are the classic way owners get in trouble.</p>
         </section>
@@ -101,7 +103,7 @@ const faqs: FaqItem[] = [
         <section>
           <h2>The honest bottom line</h2>
           <p>Default LLC taxation is simpler and cheaper to run. The S election can save meaningful SE tax for profitable, owner-operated businesses — at the price of payroll, filings, and ongoing discipline. The decision interacts with state law, ownership plans, and benefit needs, which is why generic "always elect S corp at $X profit" rules are unreliable.</p>
-          <p>If you're weighing this for a real business, the highest-value next step is a conversation with a tax professional who can model <em>your</em> numbers — not a YouTube rule of thumb.</p>
+          <p>If you're weighing this for a real business, the highest-value next step is a conversation with a tax professional who can model <em>your</em> numbers — not a generic rule of thumb.</p>
         </section>
 
         <LeadCTA kind="accountant" title="Model it with a tax pro" />

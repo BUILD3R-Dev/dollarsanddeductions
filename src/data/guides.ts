@@ -12,6 +12,18 @@ export interface Guide {
   related: string[];
   cta: CtaKind;
   updated: string;
+  /** Companion YouTube video. Set it and the guide page shows a "Watch the video" card. */
+  video?: GuideVideo;
+}
+
+export interface GuideVideo {
+  /** The ID from the YouTube URL: youtube.com/watch?v=<youtubeId> */
+  youtubeId: string;
+  title: string;
+  /** Publish date, YYYY-MM-DD. */
+  published: string;
+  /** Optional ISO 8601 duration, e.g. 'PT9M54S'. */
+  duration?: string;
 }
 
 export const GUIDES: Guide[] = [
@@ -25,6 +37,8 @@ export const GUIDES: Guide[] = [
     related: ['what-is-a-tax-strategist', 'small-business-tax-deductions', 'how-much-does-a-cpa-cost-for-a-small-business'],
     cta: 'formation',
     updated: '2026-10-03',
+    // Video 1 ("S Corp vs LLC: The $15,000 Tax Difference Explained") is in production.
+    // When it's live: video: { youtubeId: '…', title: 'S Corp vs LLC: The $15,000 Tax Difference Explained', published: 'YYYY-MM-DD' },
   },
   {
     slug: 'what-is-a-tax-strategist',

@@ -1,0 +1,35 @@
+---
+/** "Watch the video" card for a guide's companion YouTube video. Links out rather
+ *  than embedding, so the page loads no YouTube scripts or cookies. Also emits
+ *  VideoObject structured data so search engines associate the video with the page. */
+import type { GuideVideo as Video } from '../data/guides';
+
+interface Props { video: Video; description: string }
+const { video, description } = Astro.props;
+const url = `https://www.youtube.com/watch?v=${video.youtubeId}`;
+const thumb = `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: video.title,
+  description,
+  thumbnailUrl: thumb,
+  uploadDate: video.published,
+  contentUrl: url,
+  embedUrl: `https://www.youtube.com/embed/${video.youtubeId}`,
+  ...(video.duration ? { duration: video.duration } : {}),
+};
+---
+
+<a class="guide-video" href={url} target="_blank" rel="noopener">
+  <span class="gv-thumb">
+    <img src={thumb} alt="" width="480" height="360" loading="lazy" decoding="async" />
+    <span class="gv-play" aria-hidden="true"></span>
+  </span>
+  <span class="gv-text">
+    <span class="gv-label">Watch the video</span>
+    <strong>{video.title}</strong>
+    <span class="gv-meta">On YouTube · opens in a new tab</span>
+  </span>
+</a>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
