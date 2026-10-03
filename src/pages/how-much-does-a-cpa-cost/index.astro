@@ -6,6 +6,7 @@ import LastReviewed from '../../components/LastReviewed.astro';
 import LeadCTA from '../../components/LeadCTA.astro';
 import FAQ, { type FaqItem } from '../../components/FAQ.astro';
 import Toc from '../../components/Toc.astro';
+import GuideVideo from '../../components/GuideVideo.astro';
 import RelatedGuides from '../../components/RelatedGuides.astro';
 import { guideBySlug } from '../../data/guides';
 
@@ -47,6 +48,7 @@ const faqs: FaqItem[] = [
     <div class="article">
       <Toc />
       <div class="article-body">
+        {guide.video && <GuideVideo video={guide.video} description={guide.description} />}
         <section>
           <h2>The three pricing models</h2>
           <ul>

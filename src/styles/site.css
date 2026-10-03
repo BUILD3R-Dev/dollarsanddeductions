@@ -367,6 +367,31 @@ main { padding-bottom: 5rem; }
 .toc a:hover { color: var(--ink); border-left-color: var(--line-strong); }
 .toc a[aria-current] { color: var(--pine); font-weight: 600; border-left-color: var(--pine); }
 
+/* ---- companion video card ---- */
+.guide-video {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 2rem 0 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--white);
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.guide-video:hover { border-color: var(--pine); background: var(--ledger); color: var(--ink-2); text-decoration: none; }
+.gv-thumb { position: relative; flex: none; width: 9.5rem; aspect-ratio: 16 / 9; border-radius: var(--r-sm); overflow: hidden; background: var(--pine-deep); }
+.gv-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gv-play { position: absolute; inset: 0; margin: auto; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: rgba(7, 53, 42, 0.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6 4.5v7l5.5-3.5z' fill='white'/%3E%3C/svg%3E") center / 60% no-repeat; }
+.gv-text { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.gv-label { font-size: 0.82rem; font-weight: 600; color: var(--pine); }
+.gv-text strong { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.25; font-weight: 600; color: var(--ink); }
+.guide-video:hover .gv-text strong { color: var(--pine); }
+.gv-meta { font-size: 0.82rem; color: var(--muted); }
+@media (max-width: 440px) { .gv-thumb { width: 7rem; } }
+
 /* ---- lead CTA ---- */
 .lead-cta {
   display: grid;
