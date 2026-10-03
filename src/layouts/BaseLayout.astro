@@ -48,7 +48,10 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
     <header class="site">
       <div class="container nav">
         <a class="brand" href="/">
-          <img class="brand-logo" src="/brand/horizontal-light.svg" alt="Dollars &amp; Deductions" width="279" height="44" />
+          <picture>
+            <source media="(min-width: 1100px)" srcset="/brand/horizontal-tagline-light.svg" width="393" height="62" />
+            <img class="brand-logo brand-logo-header" src="/brand/horizontal-light.svg" alt="Dollars &amp; Deductions" width="319" height="44" />
+          </picture>
         </a>
         <nav class="links" aria-label="Primary">
           {NAV.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
