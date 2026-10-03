@@ -111,7 +111,15 @@ header.site {
 .brand:hover { color: var(--ink); text-decoration: none; }
 /* Logo lock-up (public/brand). The art has a 14/120 inset around the icon;
    the negative margin puts the icon's edge on the container line. */
+.brand { flex: none; }
 .brand-logo { display: block; height: 44px; width: auto; margin-left: -5px; }
+/* Header: compact lock-up below 1100px; tagline lock-up (62px tall, tagline ~12px) from 1100px. */
+@media (min-width: 1100px) {
+  :root { --header-h: 5.5rem; }
+  .brand-logo-header { height: 62px; margin-left: -7px; }
+}
+/* Tagline lock-up: 80px tall keeps the tagline ~15px; shrinks to fit narrow screens. */
+.brand-logo-tagline { height: auto; width: min(507px, 100%); margin-left: -9px; }
 nav.links { display: flex; gap: 0.25rem; margin-left: auto; }
 nav.links a {
   position: relative;
@@ -468,7 +476,7 @@ ul.checklist label:has(input:checked) strong { color: var(--muted); }
 /* ---- footer ---- */
 footer.site { background: var(--pine-deep); color: var(--mint-ink); padding: 3.5rem 0 2.5rem; font-size: 0.9rem; }
 .foot-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 3rem; align-items: start; }
-.foot-brand p { margin: 0.6rem 0 0; color: var(--mint-ink); max-width: 28rem; }
+
 footer.site .brand { color: var(--white); }
 footer.site nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: flex-end; padding-top: 0.3rem; }
 footer.site a { color: var(--white); text-decoration: none; font-weight: 500; }
@@ -484,8 +492,9 @@ footer.site :focus-visible { outline-color: var(--white); }
   .worksheet { max-width: 36rem; }
   .hub { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 }
-@media (max-width: 760px) {
-  body { font-size: 16px; }
+/* Header: logo on its own row with a scrollable nav row below, until the
+   one-row layout (logo + five links) fits at 1100px. */
+@media (max-width: 1099px) {
   :root { --header-h: auto; }
   html { scroll-padding-top: 7rem; }
   .nav { flex-wrap: wrap; gap: 0; padding-top: 0.6rem; }
@@ -502,6 +511,9 @@ footer.site :focus-visible { outline-color: var(--white); }
   nav.links::-webkit-scrollbar { display: none; }
   nav.links a { padding: 0.45rem 0.65rem; }
   nav.links a:first-child { margin-left: -0.65rem; }
+}
+@media (max-width: 760px) {
+  body { font-size: 16px; }
   .principle-grid { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   .lead-cta { grid-template-columns: minmax(0, 1fr); }
   .hero-actions .btn { flex: 1 1 100%; }
