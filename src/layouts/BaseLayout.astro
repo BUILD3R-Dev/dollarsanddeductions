@@ -17,7 +17,8 @@ const path = Astro.url.pathname;
 const isCurrent = (href: string) => href === '/' ? path === href : (href.endsWith('/') ? path === href : path.startsWith(href));
 const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 
-const brandMark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0f3d2a"/><text x="16" y="23.5" text-anchor="middle" font-size="20" font-weight="800" fill="#ffc92e" font-family="system-ui, sans-serif">$</text></svg>`;
+// Mark: a ledger column whose last line is double-ruled, the bookkeeper's sign for a final total.
+const brandMark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0b5d45"/><path d="M9 10.5h14M9 15.5h10" stroke="#cfe6da" stroke-width="2" stroke-linecap="round"/><path d="M9 21h14M9 24.5h14" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>`;
 ---
 
 <!doctype html>
@@ -36,17 +37,18 @@ const brandMark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true
     <meta property="og:site_name" content={SITE.name} />
     <meta name="twitter:card" content="summary" />
     <!-- GA4: Measurement ID goes here when Dustin creates the data stream -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f3d2a'/%3E%3Ctext x='16' y='23.5' text-anchor='middle' font-size='20' font-weight='800' fill='%23ffc92e' font-family='system-ui,sans-serif'%3E$%3C/text%3E%3C/svg%3E" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b5d45'/%3E%3Cpath d='M9 10.5h14M9 15.5h10' stroke='%23cfe6da' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M9 21h14M9 24.5h14' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..500&family=Public+Sans:ital,wght@0,400..700;1,400&display=swap" rel="stylesheet" />
     {schemas.map((s) => (
       <script type="application/ld+json" set:html={JSON.stringify(s)} />
     ))}
   </head>
   <body>
+    <a class="skip" href="#main">Skip to content</a>
     <header class="site">
-      <div class="wrap-wide nav">
+      <div class="container nav">
         <a class="brand" href="/">
           <span set:html={brandMark} />
           Dollars &amp; Deductions
@@ -56,15 +58,18 @@ const brandMark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true
         </nav>
       </div>
     </header>
-    <main>
+    <main id="main">
       <slot />
     </main>
     <footer class="site">
-      <div class="wrap-wide">
-        <a class="brand" href="/">
-          <span set:html={brandMark} />
-          Dollars &amp; Deductions
-        </a>
+      <div class="container foot-grid">
+        <div class="foot-brand">
+          <a class="brand" href="/">
+            <span set:html={brandMark} />
+            Dollars &amp; Deductions
+          </a>
+          <p>Plain-English small-business tax guides, written for owners.</p>
+        </div>
         <nav aria-label="Footer">
           <a href="/about/">About</a>
           <a href="/how-we-research/">How we research</a>
@@ -73,10 +78,36 @@ const brandMark = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true
           <a href="/sitemap-index.xml">Sitemap</a>
         </nav>
         <div class="foot-text">
-          <p>© 2026 dollarsanddeductions.com — {EDU_DISCLAIMER}</p>
+          <p>{EDU_DISCLAIMER}</p>
           <p>We may earn a referral fee when you connect with a service provider through links on this site. <a href="/disclosure/">Read our disclosure</a>.</p>
+          <p>© 2026 dollarsanddeductions.com</p>
         </div>
       </div>
     </footer>
+    <script>
+      // Checklists become tickable; progress is remembered per page in this browser.
+      document.querySelectorAll<HTMLUListElement>('ul.checklist').forEach((list, li) => {
+        const key = `dd-check:${location.pathname}:${li}`;
+        let saved: number[] = [];
+        try { saved = JSON.parse(localStorage.getItem(key) ?? '[]'); } catch {}
+        const items = [...list.children] as HTMLLIElement[];
+        const save = () => {
+          const done = items.flatMap((item, i) => (item.querySelector('input')?.checked ? [i] : []));
+          try { localStorage.setItem(key, JSON.stringify(done)); } catch {}
+        };
+        list.classList.add('is-interactive');
+        items.forEach((item, i) => {
+          const label = document.createElement('label');
+          const box = document.createElement('input');
+          box.type = 'checkbox';
+          box.checked = saved.includes(i);
+          box.addEventListener('change', save);
+          const text = document.createElement('span');
+          text.append(...item.childNodes);
+          label.append(box, text);
+          item.append(label);
+        });
+      });
+    </script>
   </body>
 </html>

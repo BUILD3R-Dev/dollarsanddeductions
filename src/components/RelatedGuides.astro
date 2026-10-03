@@ -1,0 +1,22 @@
+---
+import { guideBySlug } from '../data/guides';
+
+interface Props { slugs: string[] }
+const { slugs } = Astro.props;
+const shortTitle = (t: string) => t.replace(/ \(2026.*$/, '');
+---
+
+<section class="related">
+  <h2>Related guides</h2>
+  <ul class="guide-list">
+    {slugs.map((slug) => { const r = guideBySlug(slug); return (
+      <li>
+        <a href={`/${r.slug}/`}>
+          <span class="gl-hub">{r.hub}</span>
+          <strong>{shortTitle(r.title)}</strong>
+          <span class="gl-hook">{r.hook}</span>
+        </a>
+      </li>
+    );})}
+  </ul>
+</section>

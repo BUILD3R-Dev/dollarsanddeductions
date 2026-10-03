@@ -48,5 +48,10 @@ public/robots.txt, public/llms.txt
 
 ## Design notes
 
-- Mirrors infonavigator's proven layout system (rail headings, cards, FAQ details, disclosure asides) with its own palette; no shared files between sites (studio rule: fix CSS in each site separately).
+- Restyled 2026-10-03 (branch `claude/site-design-restyling-5798e1`). Identity borrows from tax paperwork: numbered form lines, ledger columns, and a red double rule under final totals.
+- Type: Newsreader (headings) + Public Sans (body/UI, the US federal design system face). Palette: cool white, mist `#eef4f0`, pine `#0b5d45` for actions, deep pine `#07352a` for the lead CTA and footer, red `#c3283a` only on totals.
+- Homepage hero carries `Worksheet.astro`, a live LLC vs S-corp payroll-tax estimate (also embedded in the S corp guide). It uses the 2026 Social Security wage base ($184,500); update `WAGE_BASE` each January.
+- Guides index on the homepage is grouped by owner question (hub intros live in `index.astro`).
+- Guide pages: mist page-head band, 42rem reading column, sticky "On this page" nav (`Toc.astro`, built client-side, ≥1080px only), shared `RelatedGuides.astro`.
+- `ul.checklist` items become tickable checkboxes (script in BaseLayout); progress is saved per page in localStorage.
 - LeadCTA variants: accountant (default), formation, payroll, software — each wired to its /go/ stub with `rel="sponsored nofollow"`.

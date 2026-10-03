@@ -5,6 +5,8 @@ import DisclosureBlock from '../../components/DisclosureBlock.astro';
 import LastReviewed from '../../components/LastReviewed.astro';
 import LeadCTA from '../../components/LeadCTA.astro';
 import FAQ, { type FaqItem } from '../../components/FAQ.astro';
+import Toc from '../../components/Toc.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
 import { guideBySlug } from '../../data/guides';
 
 const guide = guideBySlug('how-much-does-a-cpa-cost');
@@ -35,67 +37,67 @@ const faqs: FaqItem[] = [
 
 <BaseLayout title={guide.title} description={guide.description} schema={schema}>
   <div class="wrap">
-    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'How much does a CPA cost' }]} />
-    <h1>How Much Does a CPA Cost?</h1>
-    <p class="lede">The price of a CPA is the price of your complexity. Here's how CPAs charge, what each service commonly costs, and how to get quotes you can actually compare.</p>
-    <LastReviewed date={guide.updated} />
+    <header class="page-head">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'How much does a CPA cost' }]} />
+      <h1>How Much Does a CPA Cost?</h1>
+      <p class="lede">The price of a CPA is the price of your complexity. Here's how CPAs charge, what each service commonly costs, and how to get quotes you can actually compare.</p>
+      <LastReviewed date={guide.updated} />
+    </header>
 
-    <section>
-      <h2>The three pricing models</h2>
-      <ul>
-        <li><strong>Hourly ($100–$400+).</strong> Commonly reported range, varying by seniority and market. Still used for advisory, cleanup, and unusual projects. Ask whose hours — partner time costs multiples of staff time.</li>
-        <li><strong>Flat fee per return.</strong> Now the most common model for tax preparation. You know the price upfront; the firm absorbs efficiency risk.</li>
-        <li><strong>Monthly subscription ($200–$1,000+).</strong> Bundles bookkeeping with tax, sometimes advisory. Increasingly popular because it aligns incentives: the firm wants your books clean all year, not just in March.</li>
-      </ul>
-      <p class="muted">Ranges above are commonly reported across 2025–2026 industry pricing surveys and firm-published guides — not quotes. Your price depends on your situation; always get written proposals.</p>
-    </section>
+    <div class="article">
+      <Toc />
+      <div class="article-body">
+        <section>
+          <h2>The three pricing models</h2>
+          <ul>
+            <li><strong>Hourly ($100–$400+).</strong> Commonly reported range, varying by seniority and market. Still used for advisory, cleanup, and unusual projects. Ask whose hours — partner time costs multiples of staff time.</li>
+            <li><strong>Flat fee per return.</strong> Now the most common model for tax preparation. You know the price upfront; the firm absorbs efficiency risk.</li>
+            <li><strong>Monthly subscription ($200–$1,000+).</strong> Bundles bookkeeping with tax, sometimes advisory. Increasingly popular because it aligns incentives: the firm wants your books clean all year, not just in March.</li>
+          </ul>
+          <p class="muted">Ranges above are commonly reported across 2025–2026 industry pricing surveys and firm-published guides — not quotes. Your price depends on your situation; always get written proposals.</p>
+        </section>
 
-    <section>
-      <h2>What business returns commonly cost</h2>
-      <p>Business returns cost more than personal ones because the reviewer is checking entity compliance, not just math. Commonly reported 2026 ranges:</p>
-      <ul>
-        <li><strong>Schedule C (sole proprietor):</strong> roughly $500–$1,500</li>
-        <li><strong>Partnership / LLC (Form 1065):</strong> roughly $1,000–$2,500</li>
-        <li><strong>S corporation (Form 1120-S):</strong> roughly $1,200–$2,500+</li>
-        <li><strong>C corporation (Form 1120):</strong> roughly $1,500–$3,000+</li>
-        <li><strong>Monthly bookkeeping:</strong> roughly $200–$1,000 for typical small businesses, scaling with transaction volume</li>
-      </ul>
-      <p>One industry benchmark (Ignition's 2025 U.S. pricing survey, via published analysis) put the most common band for a small-business return at $1,000–$1,499. Treat all of these as orientation, not quotes — entity type, state filings, and book condition move actual prices substantially.</p>
-    </section>
+        <section>
+          <h2>What business returns commonly cost</h2>
+          <p>Business returns cost more than personal ones because the reviewer is checking entity compliance, not just math. Commonly reported 2026 ranges:</p>
+          <ul>
+            <li><strong>Schedule C (sole proprietor):</strong> roughly $500–$1,500</li>
+            <li><strong>Partnership / LLC (Form 1065):</strong> roughly $1,000–$2,500</li>
+            <li><strong>S corporation (Form 1120-S):</strong> roughly $1,200–$2,500+</li>
+            <li><strong>C corporation (Form 1120):</strong> roughly $1,500–$3,000+</li>
+            <li><strong>Monthly bookkeeping:</strong> roughly $200–$1,000 for typical small businesses, scaling with transaction volume</li>
+          </ul>
+          <p>One industry benchmark (Ignition's 2025 U.S. pricing survey, via published analysis) put the most common band for a small-business return at $1,000–$1,499. Treat all of these as orientation, not quotes — entity type, state filings, and book condition move actual prices substantially.</p>
+        </section>
 
-    <LeadCTA kind="accountant" />
+        <LeadCTA kind="accountant" />
 
-    <section>
-      <h2>What moves your quote</h2>
-      <ul>
-        <li><strong>Book condition.</strong> The single biggest lever you control. Clean, reconciled books vs. a year of uncategorized transactions can double a quote — you're paying for cleanup either way.</li>
-        <li><strong>Entity type.</strong> See the ranges above: more complex entities, more expensive returns.</li>
-        <li><strong>States.</strong> Each additional state filing adds cost. Multi-state activity (employees, nexus) compounds it.</li>
-        <li><strong>Add-ons.</strong> Tax planning sessions, payroll, and advisory are usually separate line items. Ask what's included before comparing quotes.</li>
-      </ul>
-    </section>
+        <section>
+          <h2>What moves your quote</h2>
+          <ul>
+            <li><strong>Book condition.</strong> The single biggest lever you control. Clean, reconciled books vs. a year of uncategorized transactions can double a quote — you're paying for cleanup either way.</li>
+            <li><strong>Entity type.</strong> See the ranges above: more complex entities, more expensive returns.</li>
+            <li><strong>States.</strong> Each additional state filing adds cost. Multi-state activity (employees, nexus) compounds it.</li>
+            <li><strong>Add-ons.</strong> Tax planning sessions, payroll, and advisory are usually separate line items. Ask what's included before comparing quotes.</li>
+          </ul>
+        </section>
 
-    <section>
-      <h2>How to get comparable quotes</h2>
-      <ul class="checklist">
-        <li>Describe the same scope to every firm: entity type, states, revenue band, transaction volume, book condition.</li>
-        <li>Ask what is <em>included</em>: which forms, how many states, planning sessions, and what triggers extra fees.</li>
-        <li>Ask about the engagement model: once-a-year filing, or year-round? The cheapest quote and the lowest total cost are rarely the same thing.</li>
-        <li>Get it in writing. Verbal quotes evaporate in April.</li>
-      </ul>
-    </section>
+        <section>
+          <h2>How to get comparable quotes</h2>
+          <ul class="checklist">
+            <li>Describe the same scope to every firm: entity type, states, revenue band, transaction volume, book condition.</li>
+            <li>Ask what is <em>included</em>: which forms, how many states, planning sessions, and what triggers extra fees.</li>
+            <li>Ask about the engagement model: once-a-year filing, or year-round? The cheapest quote and the lowest total cost are rarely the same thing.</li>
+            <li>Get it in writing. Verbal quotes evaporate in April.</li>
+          </ul>
+        </section>
 
-    <FAQ items={faqs} />
+        <FAQ items={faqs} />
 
-    <section>
-      <h2>Related guides</h2>
-      <ul class="linklist">
-        {guide.related.map((slug) => { const r = guideBySlug(slug); return (
-          <li><a href={`/${r.slug}/`}><strong>{r.title.replace(/ \(2026.*$/, '')}</strong></a><p class="muted">{r.hook}</p></li>
-        );})}
-      </ul>
-    </section>
+        <RelatedGuides slugs={guide.related} />
 
-    <DisclosureBlock />
+        <DisclosureBlock />
+      </div>
+    </div>
   </div>
 </BaseLayout>

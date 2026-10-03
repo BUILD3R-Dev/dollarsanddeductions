@@ -1,0 +1,44 @@
+---
+/** "On this page" navigation for guides. Built client-side from the
+ *  article's section headings; stays hidden if JS is off. */
+---
+
+<nav class="toc" aria-label="On this page" hidden>
+  <p class="toc-title">On this page</p>
+  <ol data-toc></ol>
+</nav>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('.toc');
+  const list = nav?.querySelector('[data-toc]');
+  const headings = [...document.querySelectorAll<HTMLHeadingElement>('.article-body > section:not(.lead-cta) > h2')];
+
+  if (nav && list && headings.length > 2) {
+    const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const links = new Map<Element, HTMLAnchorElement>();
+
+    headings.forEach((h) => {
+      if (!h.id) h.id = slug(h.textContent ?? '');
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${h.id}`;
+      a.textContent = h.textContent;
+      li.append(a);
+      list.append(li);
+      links.set(h, a);
+    });
+    nav.hidden = false;
+
+    // Mark the section currently being read.
+    let current: HTMLAnchorElement | undefined;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        current?.removeAttribute('aria-current');
+        current = links.get(e.target);
+        current?.setAttribute('aria-current', 'location');
+      });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    headings.forEach((h) => observer.observe(h));
+  }
+</script>

@@ -5,6 +5,8 @@ import DisclosureBlock from '../../components/DisclosureBlock.astro';
 import LastReviewed from '../../components/LastReviewed.astro';
 import LeadCTA from '../../components/LeadCTA.astro';
 import FAQ, { type FaqItem } from '../../components/FAQ.astro';
+import Toc from '../../components/Toc.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
 import { guideBySlug } from '../../data/guides';
 
 const guide = guideBySlug('how-much-does-a-cpa-cost-for-a-small-business');
@@ -35,56 +37,56 @@ const faqs: FaqItem[] = [
 
 <BaseLayout title={guide.title} description={guide.description} schema={schema}>
   <div class="wrap">
-    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'CPA cost for a small business' }]} />
-    <h1>How Much Does a CPA Cost for a Small Business?</h1>
-    <p class="lede">For a small business, the return is the smallest part of the bill. Here's what the full picture commonly costs — and where the money actually goes.</p>
-    <LastReviewed date={guide.updated} />
+    <header class="page-head">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'CPA cost for a small business' }]} />
+      <h1>How Much Does a CPA Cost for a Small Business?</h1>
+      <p class="lede">For a small business, the return is the smallest part of the bill. Here's what the full picture commonly costs — and where the money actually goes.</p>
+      <LastReviewed date={guide.updated} />
+    </header>
 
-    <section>
-      <h2>The three bills, not one</h2>
-      <p>Small businesses don't buy "a CPA." They buy up to three things, often from different providers:</p>
-      <ul>
-        <li><strong>The return itself.</strong> Commonly reported 2026 ranges: roughly $500–$1,500 for a Schedule C, $1,000–$2,500 for partnership/S-corp returns. (See our <a href="/how-much-does-a-cpa-cost/">full CPA pricing guide</a> for the breakdown.)</li>
-        <li><strong>Bookkeeping.</strong> Roughly $200–$1,000/month for typical small businesses in published 2026 guides, scaling with transaction volume. This is the bill owners underestimate most.</li>
-        <li><strong>Planning and advisory.</strong> Often $500–$1,500 per planning session, or bundled into monthly packages of $750+/month for full-service arrangements covering books, filing, and planning together.</li>
-      </ul>
-      <p class="muted">Ranges are commonly reported across 2025–2026 industry surveys and firm-published guides — orientation, not quotes.</p>
-    </section>
+    <div class="article">
+      <Toc />
+      <div class="article-body">
+        <section>
+          <h2>The three bills, not one</h2>
+          <p>Small businesses don't buy "a CPA." They buy up to three things, often from different providers:</p>
+          <ul>
+            <li><strong>The return itself.</strong> Commonly reported 2026 ranges: roughly $500–$1,500 for a Schedule C, $1,000–$2,500 for partnership/S-corp returns. (See our <a href="/how-much-does-a-cpa-cost/">full CPA pricing guide</a> for the breakdown.)</li>
+            <li><strong>Bookkeeping.</strong> Roughly $200–$1,000/month for typical small businesses in published 2026 guides, scaling with transaction volume. This is the bill owners underestimate most.</li>
+            <li><strong>Planning and advisory.</strong> Often $500–$1,500 per planning session, or bundled into monthly packages of $750+/month for full-service arrangements covering books, filing, and planning together.</li>
+          </ul>
+          <p class="muted">Ranges are commonly reported across 2025–2026 industry surveys and firm-published guides — orientation, not quotes.</p>
+        </section>
 
-    <section>
-      <h2>The bundled model, explained</h2>
-      <p>More firms now sell a single monthly subscription — bookkeeping, tax filing, payroll coordination, and planning sessions in one package, commonly starting around $750/month for full-service. The pitch is incentive alignment: when the same firm keeps your books all year, there's no March cleanup surprise, and planning happens when decisions are still movable.</p>
-      <p>Whether bundling beats à la carte depends on your discipline. If your books are clean and you only need a return filed, unbundled is cheaper. If every April starts with a cleanup project, the bundle is usually the lower total cost.</p>
-    </section>
+        <section>
+          <h2>The bundled model, explained</h2>
+          <p>More firms now sell a single monthly subscription — bookkeeping, tax filing, payroll coordination, and planning sessions in one package, commonly starting around $750/month for full-service. The pitch is incentive alignment: when the same firm keeps your books all year, there's no March cleanup surprise, and planning happens when decisions are still movable.</p>
+          <p>Whether bundling beats à la carte depends on your discipline. If your books are clean and you only need a return filed, unbundled is cheaper. If every April starts with a cleanup project, the bundle is usually the lower total cost.</p>
+        </section>
 
-    <LeadCTA kind="accountant" title="Compare small-business accounting options" />
+        <LeadCTA kind="accountant" title="Compare small-business accounting options" />
 
-    <section>
-      <h2>The DIY breakpoint</h2>
-      <p>Tax software handles compliance for simple situations at a fraction of professional fees. The honest breakpoint isn't about intelligence — it's about <strong>movable decisions</strong>. If your situation involves entity choice, owner compensation structuring, multi-state activity, or significant retirement contributions, professional input typically pays for itself in the decisions, not the filing. If it's a simple Schedule C with clean books, software plus a periodic review is a reasonable setup.</p>
-    </section>
+        <section>
+          <h2>The DIY breakpoint</h2>
+          <p>Tax software handles compliance for simple situations at a fraction of professional fees. The honest breakpoint isn't about intelligence — it's about <strong>movable decisions</strong>. If your situation involves entity choice, owner compensation structuring, multi-state activity, or significant retirement contributions, professional input typically pays for itself in the decisions, not the filing. If it's a simple Schedule C with clean books, software plus a periodic review is a reasonable setup.</p>
+        </section>
 
-    <section>
-      <h2>What actually drives your price</h2>
-      <ul>
-        <li><strong>Entity type and return complexity</strong> — the base price of the work.</li>
-        <li><strong>Book condition</strong> — the multiplier. Clean books, clean quote.</li>
-        <li><strong>Service breadth</strong> — filing only, or books + filing + planning.</li>
-        <li><strong>Provider model</strong> — local firm, virtual firm, or national service; each prices differently for the same scope.</li>
-      </ul>
-    </section>
+        <section>
+          <h2>What actually drives your price</h2>
+          <ul>
+            <li><strong>Entity type and return complexity</strong> — the base price of the work.</li>
+            <li><strong>Book condition</strong> — the multiplier. Clean books, clean quote.</li>
+            <li><strong>Service breadth</strong> — filing only, or books + filing + planning.</li>
+            <li><strong>Provider model</strong> — local firm, virtual firm, or national service; each prices differently for the same scope.</li>
+          </ul>
+        </section>
 
-    <FAQ items={faqs} />
+        <FAQ items={faqs} />
 
-    <section>
-      <h2>Related guides</h2>
-      <ul class="linklist">
-        {guide.related.map((slug) => { const r = guideBySlug(slug); return (
-          <li><a href={`/${r.slug}/`}><strong>{r.title.replace(/ \(2026.*$/, '')}</strong></a><p class="muted">{r.hook}</p></li>
-        );})}
-      </ul>
-    </section>
+        <RelatedGuides slugs={guide.related} />
 
-    <DisclosureBlock />
+        <DisclosureBlock />
+      </div>
+    </div>
   </div>
 </BaseLayout>

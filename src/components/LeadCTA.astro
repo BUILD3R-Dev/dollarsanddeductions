@@ -34,9 +34,13 @@ const CTAS: Record<Exclude<CtaKind, 'none'>, { heading: string; body: string; hr
 const cta = CTAS[kind];
 ---
 
-<section class="review-cta" aria-label={cta.heading}>
-  <h2>{cta.heading}</h2>
-  <p>{cta.body}</p>
-  <p><a class="btn btn-lg" href={cta.href} rel="sponsored nofollow">{cta.btn}</a></p>
-  <p class="muted">Partner link — we may earn a referral fee if you connect with a provider. <a href="/disclosure/">Details</a>.</p>
+<section class="lead-cta" aria-label={cta.heading}>
+  <div class="lc-copy">
+    <h2>{cta.heading}</h2>
+    <p>{cta.body}</p>
+  </div>
+  <div class="lc-action">
+    <a class="btn btn-lg btn-light" href={cta.href} rel="sponsored nofollow">{cta.btn}</a>
+    <p class="lc-note">Partner link. We may earn a referral fee if you connect with a provider. <a href="/disclosure/">Details</a></p>
+  </div>
 </section>

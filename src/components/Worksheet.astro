@@ -1,0 +1,91 @@
+---
+/** Homepage hero worksheet: a rough, live comparison of self-employment tax
+ *  under default LLC taxation vs payroll tax on an S-corp owner's salary.
+ *  Defaults are computed here so the page reads correctly without JS. */
+
+// 2026 Social Security wage base (SSA). Update each January.
+const WAGE_BASE = 184_500;
+const DEFAULTS = { profit: 90_000, salary: 50_000, costs: 3_000 };
+
+const seTax = (profit: number) => {
+  const base = Math.max(0, profit) * 0.9235;
+  return 0.124 * Math.min(base, WAGE_BASE) + 0.029 * base;
+};
+const payrollTax = (salary: number) => 0.124 * Math.min(salary, WAGE_BASE) + 0.029 * salary;
+const usd = (n: number) => '$' + Math.round(Math.abs(n)).toLocaleString('en-US');
+
+const llc = seTax(DEFAULTS.profit);
+const scorp = payrollTax(DEFAULTS.salary);
+const diff = llc - scorp - DEFAULTS.costs;
+---
+
+<form class="worksheet" id="worksheet" aria-labelledby="ws-title" data-wage-base={WAGE_BASE} onsubmit="return false">
+  <div class="ws-head">
+    <h2 id="ws-title">LLC or S corp: what's the payroll-tax difference?</h2>
+    <p>Change the amounts to see a rough estimate.</p>
+  </div>
+
+  <ol class="ws-lines">
+    <li class="ws-line ws-input">
+      <label class="ws-label" for="ws-profit">Net business profit for the year</label>
+      <span class="ws-field"><span aria-hidden="true">$</span><input id="ws-profit" name="profit" inputmode="numeric" autocomplete="off" value={DEFAULTS.profit.toLocaleString('en-US')} /></span>
+    </li>
+    <li class="ws-line ws-input">
+      <label class="ws-label" for="ws-salary">Reasonable salary you'd pay yourself</label>
+      <span class="ws-field"><span aria-hidden="true">$</span><input id="ws-salary" name="salary" inputmode="numeric" autocomplete="off" value={DEFAULTS.salary.toLocaleString('en-US')} /></span>
+    </li>
+    <li class="ws-line ws-input">
+      <label class="ws-label" for="ws-costs">Yearly cost of payroll, 1120-S and filings</label>
+      <span class="ws-field"><span aria-hidden="true">$</span><input id="ws-costs" name="costs" inputmode="numeric" autocomplete="off" value={DEFAULTS.costs.toLocaleString('en-US')} /></span>
+    </li>
+    <li class="ws-line">
+      <span class="ws-label">Self-employment tax as a default LLC</span>
+      <output id="ws-llc" for="ws-profit">{usd(llc)}</output>
+    </li>
+    <li class="ws-line">
+      <span class="ws-label">Payroll tax on your salary as an S corp</span>
+      <output id="ws-scorp" for="ws-salary">{usd(scorp)}</output>
+    </li>
+    <li class="ws-line ws-total">
+      <span class="ws-label"><span id="ws-verdict">{diff >= 0 ? 'Estimated yearly saving from the S election' : 'Estimated yearly cost of the S election'}</span><small>Line 4 minus lines 5 and 3</small></span>
+      <output id="ws-diff" for="ws-profit ws-salary ws-costs" aria-live="polite" class={diff >= 0 ? 'is-saving' : 'is-cost'}>{usd(diff)}</output>
+    </li>
+  </ol>
+
+  <p class="ws-note">A simplified illustration of federal SE and payroll tax only. It leaves out income tax, state taxes, the 0.9% additional Medicare tax and the deduction for half of SE tax. Not tax advice.</p>
+  <a class="ws-link" href="/s-corp-vs-llc/">How the S election works</a>
+</form>
+
+<script>
+  const form = document.getElementById('worksheet') as HTMLFormElement | null;
+  if (form) {
+    const WAGE_BASE = Number(form.dataset.wageBase);
+    const $ = (id: string) => document.getElementById(id)!;
+    const inputs = ['ws-profit', 'ws-salary', 'ws-costs'].map((id) => $(id) as HTMLInputElement);
+    const parse = (el: HTMLInputElement) => Number(el.value.replace(/[^0-9.]/g, '')) || 0;
+    const usd = (n: number) => '$' + Math.round(Math.abs(n)).toLocaleString('en-US');
+
+    const update = () => {
+      const [profit, rawSalary, costs] = inputs.map(parse);
+      const salary = Math.min(rawSalary, profit);
+      const base = profit * 0.9235;
+      const llc = 0.124 * Math.min(base, WAGE_BASE) + 0.029 * base;
+      const scorp = 0.124 * Math.min(salary, WAGE_BASE) + 0.029 * salary;
+      const diff = llc - scorp - costs;
+      $('ws-llc').textContent = usd(llc);
+      $('ws-scorp').textContent = usd(scorp);
+      const out = $('ws-diff');
+      out.textContent = usd(diff);
+      out.className = diff >= 0 ? 'is-saving' : 'is-cost';
+      $('ws-verdict').textContent = diff >= 0
+        ? 'Estimated yearly saving from the S election'
+        : 'Estimated yearly cost of the S election';
+    };
+
+    inputs.forEach((el) => {
+      el.addEventListener('input', update);
+      el.addEventListener('blur', () => { el.value = parse(el).toLocaleString('en-US'); });
+      el.addEventListener('focus', () => el.select());
+    });
+  }
+</script>

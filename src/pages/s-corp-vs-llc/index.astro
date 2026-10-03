@@ -5,6 +5,9 @@ import DisclosureBlock from '../../components/DisclosureBlock.astro';
 import LastReviewed from '../../components/LastReviewed.astro';
 import LeadCTA from '../../components/LeadCTA.astro';
 import FAQ, { type FaqItem } from '../../components/FAQ.astro';
+import Toc from '../../components/Toc.astro';
+import RelatedGuides from '../../components/RelatedGuides.astro';
+import Worksheet from '../../components/Worksheet.astro';
 import { guideBySlug } from '../../data/guides';
 
 const guide = guideBySlug('s-corp-vs-llc');
@@ -39,74 +42,76 @@ const faqs: FaqItem[] = [
 
 <BaseLayout title={guide.title} description={guide.description} schema={schema}>
   <div class="wrap">
-    <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'S Corp vs LLC' }]} />
-    <h1>S Corp vs LLC: How the Tax Choice Actually Works</h1>
-    <p class="lede">The highest-traffic question in small-business tax — and the one most often answered with a sales pitch. Here is the mechanics-first version: what each option is, how the IRS taxes each, and the factors owners actually weigh.</p>
-    <LastReviewed date={guide.updated} />
+    <header class="page-head">
+      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'S Corp vs LLC' }]} />
+      <h1>S Corp vs LLC: How the Tax Choice Actually Works</h1>
+      <p class="lede">The highest-traffic question in small-business tax — and the one most often answered with a sales pitch. Here is the mechanics-first version: what each option is, how the IRS taxes each, and the factors owners actually weigh.</p>
+      <LastReviewed date={guide.updated} />
+    </header>
 
-    <section>
-      <h2>The one thing to get straight first</h2>
-      <p><strong>"S corp" is a tax election. "LLC" is a business entity.</strong> They are not parallel choices. An LLC is formed under state law; how it is taxed is a separate decision. An LLC can be taxed as a disregarded entity, a partnership, or — by filing <strong>Form 2553</strong> with the IRS — as an S corporation. A corporation can also elect S status.</p>
-      <p>So the real question is almost always: <em>should my LLC keep its default tax treatment, or elect S corporation taxation?</em> Everything below assumes that framing.</p>
-    </section>
+    <div class="article">
+      <Toc />
+      <div class="article-body">
+        <section>
+          <h2>The one thing to get straight first</h2>
+          <p><strong>"S corp" is a tax election. "LLC" is a business entity.</strong> They are not parallel choices. An LLC is formed under state law; how it is taxed is a separate decision. An LLC can be taxed as a disregarded entity, a partnership, or — by filing <strong>Form 2553</strong> with the IRS — as an S corporation. A corporation can also elect S status.</p>
+          <p>So the real question is almost always: <em>should my LLC keep its default tax treatment, or elect S corporation taxation?</em> Everything below assumes that framing.</p>
+        </section>
 
-    <section>
-      <h2>How a default LLC is taxed</h2>
-      <p>A single-member LLC is "disregarded" for federal tax purposes — its profit flows straight onto the owner's personal return (Schedule C). A multi-member LLC is taxed as a partnership (Form 1065, with K-1s to members). Either way, the headline number is the <strong>self-employment tax: 15.3%</strong> on net earnings (12.4% Social Security up to the annual wage base, plus 2.9% Medicare), on top of income tax.</p>
-      <p>That 15.3% applies to essentially all of the business's profit. For a business netting $80,000, that's roughly $12,240 in SE tax before income tax even enters the picture. This is the number the S election is trying to shrink.</p>
-    </section>
+        <section>
+          <h2>How a default LLC is taxed</h2>
+          <p>A single-member LLC is "disregarded" for federal tax purposes — its profit flows straight onto the owner's personal return (Schedule C). A multi-member LLC is taxed as a partnership (Form 1065, with K-1s to members). Either way, the headline number is the <strong>self-employment tax: 15.3%</strong> on net earnings (12.4% Social Security up to the annual wage base, plus 2.9% Medicare), on top of income tax.</p>
+          <p>That 15.3% applies to essentially all of the business's profit. For a business netting $80,000, that's roughly $12,240 in SE tax before income tax even enters the picture. This is the number the S election is trying to shrink.</p>
+        </section>
 
-    <section>
-      <h2>What the S election changes</h2>
-      <p>An S corporation is a pass-through like a partnership — profit flows to owners' personal returns, no corporate-level tax. The difference is <em>how owner compensation is split</em>:</p>
-      <ul>
-        <li><strong>Reasonable salary (W-2).</strong> An owner who works in the business must be paid a reasonable salary as an employee. That salary is subject to payroll taxes (the same 15.3%, split between employer and employee).</li>
-        <li><strong>Distributions.</strong> Remaining profit can be distributed to owners <em>without</em> self-employment tax. It is still subject to income tax.</li>
-      </ul>
-      <p>The tax saving is the SE tax avoided on the distribution portion. The cost is everything required to do this legitimately: running payroll, filing payroll tax returns quarterly, filing Form 1120-S annually, and maintaining the corporate formalities the election assumes.</p>
-    </section>
+        <section>
+          <h2>What the S election changes</h2>
+          <p>An S corporation is a pass-through like a partnership — profit flows to owners' personal returns, no corporate-level tax. The difference is <em>how owner compensation is split</em>:</p>
+          <ul>
+            <li><strong>Reasonable salary (W-2).</strong> An owner who works in the business must be paid a reasonable salary as an employee. That salary is subject to payroll taxes (the same 15.3%, split between employer and employee).</li>
+            <li><strong>Distributions.</strong> Remaining profit can be distributed to owners <em>without</em> self-employment tax. It is still subject to income tax.</li>
+          </ul>
+          <p>The tax saving is the SE tax avoided on the distribution portion. The cost is everything required to do this legitimately: running payroll, filing payroll tax returns quarterly, filing Form 1120-S annually, and maintaining the corporate formalities the election assumes.</p>
+        </section>
 
-    <section>
-      <h2>The breakeven logic owners use</h2>
-      <p>Think of it as a tradeoff with fixed costs on one side and a percentage saving on the other:</p>
-      <ul>
-        <li><strong>Fixed costs of the S election:</strong> payroll service, quarterly payroll filings, the 1120-S return, and typically professional fees. Commonly discussed as a few thousand dollars a year all-in, varying by market.</li>
-        <li><strong>Saving:</strong> roughly 15.3% of (profit minus reasonable salary).</li>
-      </ul>
-      <p>At modest profits, the fixed costs eat the saving. As profit grows well beyond what a reasonable salary for the role would be, the math increasingly favors the election. Where exactly the line falls depends on the salary the IRS would consider reasonable for the work — which is also the part that draws scrutiny, so aggressive low-salary strategies are the classic way owners get in trouble.</p>
-    </section>
+        <section>
+          <h2>The breakeven logic owners use</h2>
+          <p>Think of it as a tradeoff with fixed costs on one side and a percentage saving on the other:</p>
+          <ul>
+            <li><strong>Fixed costs of the S election:</strong> payroll service, quarterly payroll filings, the 1120-S return, and typically professional fees. Commonly discussed as a few thousand dollars a year all-in, varying by market.</li>
+            <li><strong>Saving:</strong> roughly 15.3% of (profit minus reasonable salary).</li>
+          </ul>
+          <p>At modest profits, the fixed costs eat the saving. As profit grows well beyond what a reasonable salary for the role would be, the math increasingly favors the election. Where exactly the line falls depends on the salary the IRS would consider reasonable for the work — which is also the part that draws scrutiny, so aggressive low-salary strategies are the classic way owners get in trouble.</p>
+        </section>
 
-    <LeadCTA kind="formation" />
+        <Worksheet />
 
-    <section>
-      <h2>Factors beyond the tax math</h2>
-      <ul>
-        <li><strong>State taxes.</strong> Some states impose entity-level taxes or fees that change the math (a few states tax S corps or LLCs specifically). State rules vary widely — check yours.</li>
-        <li><strong>Ownership flexibility.</strong> S corporations have strict ownership rules: generally US individuals only, no partnerships or corporations as shareholders, one class of stock, 100-shareholder cap. LLCs taxed by default have none of these constraints.</li>
-        <li><strong>Benefits and fringe.</strong> S corp owners with more than 2% ownership face limits on certain fringe benefits (like health insurance deductions) that work differently than in other structures.</li>
-        <li><strong>Exit and basis.</strong> How you eventually sell or wind down the business interacts with entity choice in ways that dwarf a single year's SE tax saving. Long-term planning matters more than the first-year math.</li>
-      </ul>
-    </section>
+        <LeadCTA kind="formation" />
 
-    <section>
-      <h2>The honest bottom line</h2>
-      <p>Default LLC taxation is simpler and cheaper to run. The S election can save meaningful SE tax for profitable, owner-operated businesses — at the price of payroll, filings, and ongoing discipline. The decision interacts with state law, ownership plans, and benefit needs, which is why generic "always elect S corp at $X profit" rules are unreliable.</p>
-      <p>If you're weighing this for a real business, the highest-value next step is a conversation with a tax professional who can model <em>your</em> numbers — not a YouTube rule of thumb.</p>
-    </section>
+        <section>
+          <h2>Factors beyond the tax math</h2>
+          <ul>
+            <li><strong>State taxes.</strong> Some states impose entity-level taxes or fees that change the math (a few states tax S corps or LLCs specifically). State rules vary widely — check yours.</li>
+            <li><strong>Ownership flexibility.</strong> S corporations have strict ownership rules: generally US individuals only, no partnerships or corporations as shareholders, one class of stock, 100-shareholder cap. LLCs taxed by default have none of these constraints.</li>
+            <li><strong>Benefits and fringe.</strong> S corp owners with more than 2% ownership face limits on certain fringe benefits (like health insurance deductions) that work differently than in other structures.</li>
+            <li><strong>Exit and basis.</strong> How you eventually sell or wind down the business interacts with entity choice in ways that dwarf a single year's SE tax saving. Long-term planning matters more than the first-year math.</li>
+          </ul>
+        </section>
 
-    <LeadCTA kind="accountant" title="Model it with a tax pro" />
+        <section>
+          <h2>The honest bottom line</h2>
+          <p>Default LLC taxation is simpler and cheaper to run. The S election can save meaningful SE tax for profitable, owner-operated businesses — at the price of payroll, filings, and ongoing discipline. The decision interacts with state law, ownership plans, and benefit needs, which is why generic "always elect S corp at $X profit" rules are unreliable.</p>
+          <p>If you're weighing this for a real business, the highest-value next step is a conversation with a tax professional who can model <em>your</em> numbers — not a YouTube rule of thumb.</p>
+        </section>
 
-    <FAQ items={faqs} />
+        <LeadCTA kind="accountant" title="Model it with a tax pro" />
 
-    <section>
-      <h2>Related guides</h2>
-      <ul class="linklist">
-        {guide.related.map((slug) => { const r = guideBySlug(slug); return (
-          <li><a href={`/${r.slug}/`}><strong>{r.title.replace(/ \(2026.*$/, '')}</strong></a><p class="muted">{r.hook}</p></li>
-        );})}
-      </ul>
-    </section>
+        <FAQ items={faqs} />
 
-    <DisclosureBlock />
+        <RelatedGuides slugs={guide.related} />
+
+        <DisclosureBlock />
+      </div>
+    </div>
   </div>
 </BaseLayout>
